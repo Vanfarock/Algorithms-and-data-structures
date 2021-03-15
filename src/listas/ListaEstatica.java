@@ -14,23 +14,13 @@ public class ListaEstatica implements Lista {
 	private int getCapacidade() {
 		return this.info.length;
 	}
-
-	public void inserir(int valor) {
-		if (this.getCapacidade() <= this.tamanho) {
-			this.redimensionar();
-		}
-		this.info[this.tamanho] = valor;
-		this.tamanho++;
+	
+	@Override
+	public Boolean estaVazia() {
+		return this.tamanho == 0;
 	}
 	
-	private void redimensionar() {
-		int[] novaInfo = new int[this.getCapacidade() + INITIAL_LIST_SIZE];
-		for (int i = 0; i < this.getCapacidade(); i++) {
-			novaInfo[i] = this.info[i];
-		}
-		this.info = novaInfo;
-	}
-	
+	@Override
 	public int buscar(int valor) {
 		for (int i = 0; i < this.tamanho; i++) {
 			if (this.info[i] == valor) {
@@ -40,39 +30,33 @@ public class ListaEstatica implements Lista {
 		return -1;
 	}
 	
-	public int buscarPeloIndice(int indice) {
-		if (indice >= 0 && indice < this.tamanho) {
-			return this.info[indice];
+	@Override
+	public int getTamanho() {
+		return this.tamanho;
+	}
+	
+	@Override
+	public int pegar(int pos) {
+		if (this.posicaoValida(pos)) {
+			return this.info[pos]; 			
 		}
 		return 0;
 	}
 	
-	public void retirar(int valor) {
-		int posicao = this.buscar(valor);
-		if (posicao != -1) {
-			for (int i = posicao; i < this.tamanho; i++) {
-				info[i] = info[i + 1];
-			}
-			this.tamanho--;
-		}
+	private Boolean posicaoValida(int pos) {
+		return pos >= 0 && pos <= this.getTamanho();
 	}
 	
-	public void exibir() {
+	@Override
+	public ListaEstatica copiar() {
+		ListaEstatica listaCopiada = new ListaEstatica();
 		for (int i = 0; i < this.tamanho; i++) {
-			System.out.println(this.info[i]);
+			listaCopiada.inserir(this.info[i]);
 		}
+		return listaCopiada;	
 	}
 	
-	public Boolean estaVazia() {
-		return this.tamanho == 0;
-	}
-	
-	public void concatenar(ListaEstatica outra) {
-		for (int i = 0; i < outra.tamanho; i++) {
-			this.inserir(outra.buscarPeloIndice(i));
-		}
-	}
-	
+	@Override
 	public ListaEstatica dividir() {
 		int indiceDivisao = this.tamanho / 2;
 		ListaEstatica segundaParte = new ListaEstatica();
@@ -84,40 +68,74 @@ public class ListaEstatica implements Lista {
 		return segundaParte;
 	}
 	
-	public ListaEstatica copiar() {
-		ListaEstatica listaCopiada = new ListaEstatica();
-		for (int i = 0; i < this.tamanho; i++) {
-			listaCopiada.inserir(this.info[i]);
-		}
-		return listaCopiada;	
-	}
-
-	@Override
-	public int getTamanho() {
-		return this.tamanho;
-	}
-
-	@Override
-	public int pegar(int pos) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	@Override
 	public String exibir() {
-		// TODO Auto-generated method stub
-		return null;
+		String resultado = "[";
+		for (int i = 0; i < this.getTamanho(); i++) {
+			resultado += this.info[i];
+			if (i != this.getTamanho() - 1) {
+				resultado += ", ";				
+			}
+		}
+		resultado += "]";
+		return resultado;
 	}
 
 	@Override
 	public void concatenar(Lista outro) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < outro.getTamanho(); i++) {
+			this.inserir(outro.pegar(i));
+		}		
 	}
 
 	@Override
+	public void inserir(int valor) {
+		if (this.getCapacidade() <= this.tamanho) {
+			this.redimensionar();
+		}
+		this.info[this.tamanho] = valor;
+		this.tamanho++;		
+	}
+	
+	@Override
 	public void inserir(int valor, int pos) {
-		// TODO Auto-generated method stub
-		
+		// TODO
+//		if (this.posicaoValida(pos)) {
+//			if (this.getCapacidade() <= this.tamanho) {
+//				this.redimensionar();
+//			}
+//			
+//			int ultimoValor = pos;
+//			for (int i = pos; i < this.getTamanho(); i++) {
+//				if (i != pos) {
+//					this.info[i] = ultimoValor;					
+//				}
+//				ultimoValor = this.info[i];
+//				
+//				if (i == pos) {
+//					this.info[i] = pos;					
+//				}
+//			}
+//			this.tamanho++;					
+//		}
+	}
+	
+	private void redimensionar() {
+		int[] novaInfo = new int[this.getCapacidade() + INITIAL_LIST_SIZE];
+		for (int i = 0; i < this.getCapacidade(); i++) {
+			novaInfo[i] = this.info[i];
+		}
+		this.info = novaInfo;
+	}
+	
+	@Override
+	public void retirar(int valor) {
+		int posicao = this.buscar(valor);
+		if (posicao != -1) {
+			for (int i = posicao; i < this.tamanho; i++) {
+				info[i] = info[i + 1];
+			}
+			this.tamanho--;
+		}
 	}
 }

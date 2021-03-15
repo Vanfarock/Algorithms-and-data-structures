@@ -16,7 +16,8 @@ public class TesteListaEstatica {
 		outraLista.inserir(30);
 		outraLista.inserir(40);
 	
-		lista.copiar().exibir();
+		lista.inserir(10, 0);
+		System.out.println(lista.exibir());
 	}
 
 }
