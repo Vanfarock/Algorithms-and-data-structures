@@ -3,24 +3,31 @@ package listas;
 public class ListaEncadeada implements Lista {
 	protected NoLista primeiro;
 	protected NoLista ultimo;
-	protected int qtdeElementos;
+	protected int qtdElementos;
 	
 	@Override
 	public Boolean estaVazia() {
-		// TODO Auto-generated method stub
-		return null;
+		return primeiro == null;
 	}
 
 	@Override
 	public int buscar(int valor) {
-		// TODO Auto-generated method stub
-		return 0;
+		NoLista p = this.primeiro;
+		int index = 0;
+		while (p != null) {
+			if (p.getInfo() == valor) {
+				return index;
+			}
+			
+			p = p.getProx();
+			index++;
+		}
+		return -1;
 	}
 
 	@Override
 	public int getTamanho() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.qtdElementos;
 	}
 
 	@Override
@@ -43,8 +50,18 @@ public class ListaEncadeada implements Lista {
 
 	@Override
 	public String exibir() {
-		// TODO Auto-generated method stub
-		return null;
+		String resultado = "[";
+		NoLista p = this.primeiro;
+		while (p != null) {
+			resultado += p.getInfo();
+			if (!p.equals(this.ultimo)) {
+				resultado += ", ";
+			}
+			
+			p = p.getProx();
+		}
+		resultado += "]";
+		return resultado;
 	}
 
 	@Override
@@ -55,8 +72,18 @@ public class ListaEncadeada implements Lista {
 
 	@Override
 	public void inserir(int valor) {
-		// TODO Auto-generated method stub
-
+		NoLista novoNo = new NoLista();
+		novoNo.setInfo(valor);
+		
+		if (this.estaVazia()) {
+			this.primeiro = novoNo;
+		} else {
+			this.ultimo.setProx(novoNo);			
+		}
+		
+		this.ultimo = novoNo;
+		
+		qtdElementos++;
 	}
 
 	@Override
@@ -67,8 +94,26 @@ public class ListaEncadeada implements Lista {
 
 	@Override
 	public void retirar(int valor) {
-		// TODO Auto-generated method stub
-
+		NoLista anterior = null;
+		NoLista atual = this.primeiro;
+		
+		while (atual != null && atual.getInfo() != valor) {
+			anterior = atual;
+			atual = atual.getProx();
+		}
+		
+		if (atual != null) {
+			if (anterior != null) {
+				anterior.setProx(atual.getProx());			
+			} else {
+				this.primeiro = atual.getProx();
+			}
+			
+			if (atual == this.ultimo) {
+				this.ultimo = anterior;
+			}
+			
+			qtdElementos--;
+		}
 	}
-
 }

@@ -1,23 +1,21 @@
 package listas;
 
-public class TesteListaEstatica {
-
+public class TesteListaEncadeada {
 	public static void main(String[] args) {
-		ListaEstatica lista = new ListaEstatica();
+		ListaEncadeada lista = new ListaEncadeada();
 		lista.inserir(50);
 		lista.inserir(-15);
 		lista.inserir(12);
 		lista.inserir(28);
 		lista.inserir(9);
 		
-		ListaEstatica outraLista = new ListaEstatica();
+		ListaEncadeada outraLista = new ListaEncadeada();
 		outraLista.inserir(10);
 		outraLista.inserir(20);
 		outraLista.inserir(30);
 		outraLista.inserir(40);
 	
-		lista.inserir(10, 3);
+		lista.retirar(9);
 		System.out.println(lista.exibir());
 	}
-
 }

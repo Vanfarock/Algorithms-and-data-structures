@@ -99,25 +99,25 @@ public class ListaEstatica implements Lista {
 	
 	@Override
 	public void inserir(int valor, int pos) {
-		// TODO
-//		if (this.posicaoValida(pos)) {
-//			if (this.getCapacidade() <= this.tamanho) {
-//				this.redimensionar();
-//			}
-//			
-//			int ultimoValor = pos;
-//			for (int i = pos; i < this.getTamanho(); i++) {
-//				if (i != pos) {
-//					this.info[i] = ultimoValor;					
-//				}
-//				ultimoValor = this.info[i];
-//				
-//				if (i == pos) {
-//					this.info[i] = pos;					
-//				}
-//			}
-//			this.tamanho++;					
-//		}
+		if (this.posicaoValida(pos)) {
+			if (this.getCapacidade() <= this.tamanho) {
+				this.redimensionar();
+			}
+			
+			int ultimoValor = this.info[pos];
+			int valorParaAtualizar; 
+			for (int i = pos; i <= this.getTamanho(); i++) {				
+				if (i == pos) {
+					valorParaAtualizar = valor;					
+				} else {
+					valorParaAtualizar = ultimoValor;
+				}
+				
+				ultimoValor = this.info[i];
+				this.info[i] = valorParaAtualizar;
+			}
+			this.tamanho++;					
+		}
 	}
 	
 	private void redimensionar() {
