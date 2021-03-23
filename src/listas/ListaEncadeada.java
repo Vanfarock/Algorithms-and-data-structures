@@ -1,8 +1,8 @@
 package listas;
 
-public class ListaEncadeada implements Lista {
-	protected NoLista primeiro;
-	protected NoLista ultimo;
+public class ListaEncadeada<T> implements Lista<T> {
+	protected NoLista<T> primeiro;
+	protected NoLista<T> ultimo;
 	protected int qtdElementos;
 	
 	@Override
@@ -11,8 +11,8 @@ public class ListaEncadeada implements Lista {
 	}
 
 	@Override
-	public int buscar(int valor) {
-		NoLista p = this.primeiro;
+	public int buscar(T valor) {
+		NoLista<T> p = this.primeiro;
 		int index = 0;
 		while (p != null) {
 			if (p.getInfo() == valor) {
@@ -31,27 +31,60 @@ public class ListaEncadeada implements Lista {
 	}
 
 	@Override
-	public int pegar(int pos) {
-		// TODO Auto-generated method stub
-		return 0;
+	public T pegar(int pos) {
+		int index = 0;
+		NoLista<T> resultado = primeiro;
+		while (index != pos) {
+			resultado = resultado.getProx();
+			if (resultado == null) {
+				return null;
+			}
+			
+			index++;
+		}
+		return resultado.getInfo();
 	}
 
 	@Override
-	public Lista copiar() {
-		// TODO Auto-generated method stub
-		return null;
+	public Lista<T> copiar() {
+		ListaEncadeada<T> listaCopiada = new ListaEncadeada<T>();
+		NoLista<T> itemCopiar = this.primeiro;
+		while (itemCopiar != null) {
+			listaCopiada.inserir(itemCopiar.getInfo());
+			itemCopiar = itemCopiar.getProx();
+		}
+		return listaCopiada;
 	}
 
 	@Override
-	public Lista dividir() {
-		// TODO Auto-generated method stub
-		return null;
+	public Lista<T> dividir() {
+		ListaEncadeada<T> metadeLista = new ListaEncadeada<T>();
+		if (!this.estaVazia()) {
+			NoLista<T> itemAtual = this.primeiro;
+			int index = 0;
+			int indiceMetadeLista = this.getTamanho() / 2 - 1;
+			
+			while (index < indiceMetadeLista) {
+				itemAtual = itemAtual.getProx();
+				index++;
+			}
+			
+			metadeLista.primeiro = itemAtual.getProx();
+			metadeLista.ultimo = this.ultimo;
+			metadeLista.qtdElementos = this.getTamanho() - indiceMetadeLista - 1;
+			
+			this.ultimo = itemAtual;
+			this.ultimo.setProx(null);
+			this.qtdElementos = indiceMetadeLista + 1;
+			
+		}
+		return metadeLista;		
 	}
 
 	@Override
 	public String exibir() {
 		String resultado = "[";
-		NoLista p = this.primeiro;
+		NoLista<T> p = this.primeiro;
 		while (p != null) {
 			resultado += p.getInfo();
 			if (!p.equals(this.ultimo)) {
@@ -65,14 +98,15 @@ public class ListaEncadeada implements Lista {
 	}
 
 	@Override
-	public void concatenar(Lista outro) {
-		// TODO Auto-generated method stub
-
+	public void concatenar(Lista<T> outro) {
+		for (int index = 0; index < outro.getTamanho(); index++) {
+			inserir(outro.pegar(index));
+		}
 	}
 
 	@Override
-	public void inserir(int valor) {
-		NoLista novoNo = new NoLista();
+	public void inserir(T valor) {
+		NoLista<T> novoNo = new NoLista<T>();
 		novoNo.setInfo(valor);
 		
 		if (this.estaVazia()) {
@@ -87,15 +121,15 @@ public class ListaEncadeada implements Lista {
 	}
 
 	@Override
-	public void inserir(int valor, int pos) {
+	public void inserir(T valor, int pos) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public void retirar(int valor) {
-		NoLista anterior = null;
-		NoLista atual = this.primeiro;
+	public void retirar(T valor) {
+		NoLista<T> anterior = null;
+		NoLista<T> atual = this.primeiro;
 		
 		while (atual != null && atual.getInfo() != valor) {
 			anterior = atual;

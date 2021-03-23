@@ -1,22 +1,22 @@
 package listas;
 
-public class NoLista {
-	private int info;
-	private NoLista prox;
+public class NoLista<T> {
+	private T info;
+	private NoLista<T> prox;
 	
-	public int getInfo() {
+	public T getInfo() {
 		return info;
 	}
 	
-	public void setInfo(int novaInfo) {
+	public void setInfo(T novaInfo) {
 		this.info = novaInfo;
 	}
 	
-	public NoLista getProx() {
+	public NoLista<T> getProx() {
 		return this.prox;
 	}
 	
-	public void setProx(NoLista novoProx) {
+	public void setProx(NoLista<T> novoProx) {
 		this.prox = novoProx;
 	}
 }

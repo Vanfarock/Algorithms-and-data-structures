@@ -1,13 +1,14 @@
 package listas;
 
-public class ListaEstatica implements Lista {
+public class ListaEstatica<T> implements Lista<T> {
 	private final int INITIAL_LIST_SIZE = 10;
 	
-	private int[] info;
+	private T[] info;
 	private int tamanho;
 
+	@SuppressWarnings("unchecked")
 	public ListaEstatica() {
-		this.info = new int[INITIAL_LIST_SIZE];
+		this.info = (T[])new Object[INITIAL_LIST_SIZE];
 		this.tamanho = 0;
 	}
 
@@ -21,7 +22,7 @@ public class ListaEstatica implements Lista {
 	}
 	
 	@Override
-	public int buscar(int valor) {
+	public int buscar(T valor) {
 		for (int i = 0; i < this.tamanho; i++) {
 			if (this.info[i] == valor) {
 				return i;
@@ -36,11 +37,11 @@ public class ListaEstatica implements Lista {
 	}
 	
 	@Override
-	public int pegar(int pos) {
+	public T pegar(int pos) {
 		if (this.posicaoValida(pos)) {
 			return this.info[pos]; 			
 		}
-		return 0;
+		return null;
 	}
 	
 	private Boolean posicaoValida(int pos) {
@@ -48,8 +49,8 @@ public class ListaEstatica implements Lista {
 	}
 	
 	@Override
-	public ListaEstatica copiar() {
-		ListaEstatica listaCopiada = new ListaEstatica();
+	public ListaEstatica<T> copiar() {
+		ListaEstatica<T> listaCopiada = new ListaEstatica<T>();
 		for (int i = 0; i < this.tamanho; i++) {
 			listaCopiada.inserir(this.info[i]);
 		}
@@ -57,11 +58,11 @@ public class ListaEstatica implements Lista {
 	}
 	
 	@Override
-	public ListaEstatica dividir() {
+	public ListaEstatica<T> dividir() {
 		int indiceDivisao = this.tamanho / 2;
-		ListaEstatica segundaParte = new ListaEstatica();
+		ListaEstatica<T> segundaParte = new ListaEstatica<T>();
 		while (this.tamanho > indiceDivisao) {
-			int itemCopiado = this.info[indiceDivisao];
+			T itemCopiado = this.info[indiceDivisao];
 			segundaParte.inserir(itemCopiado);
 			this.retirar(itemCopiado);
 		}
@@ -82,14 +83,14 @@ public class ListaEstatica implements Lista {
 	}
 
 	@Override
-	public void concatenar(Lista outro) {
+	public void concatenar(Lista<T> outro) {
 		for (int i = 0; i < outro.getTamanho(); i++) {
 			this.inserir(outro.pegar(i));
 		}		
 	}
 
 	@Override
-	public void inserir(int valor) {
+	public void inserir(T valor) {
 		if (this.getCapacidade() <= this.tamanho) {
 			this.redimensionar();
 		}
@@ -98,14 +99,14 @@ public class ListaEstatica implements Lista {
 	}
 	
 	@Override
-	public void inserir(int valor, int pos) {
+	public void inserir(T valor, int pos) {
 		if (this.posicaoValida(pos)) {
 			if (this.getCapacidade() <= this.tamanho) {
 				this.redimensionar();
 			}
 			
-			int ultimoValor = this.info[pos];
-			int valorParaAtualizar; 
+			T ultimoValor = this.info[pos];
+			T valorParaAtualizar; 
 			for (int i = pos; i <= this.getTamanho(); i++) {				
 				if (i == pos) {
 					valorParaAtualizar = valor;					
@@ -120,8 +121,9 @@ public class ListaEstatica implements Lista {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void redimensionar() {
-		int[] novaInfo = new int[this.getCapacidade() + INITIAL_LIST_SIZE];
+		T[] novaInfo = (T[])new Object[this.getCapacidade() + INITIAL_LIST_SIZE];
 		for (int i = 0; i < this.getCapacidade(); i++) {
 			novaInfo[i] = this.info[i];
 		}
@@ -129,7 +131,7 @@ public class ListaEstatica implements Lista {
 	}
 	
 	@Override
-	public void retirar(int valor) {
+	public void retirar(T valor) {
 		int posicao = this.buscar(valor);
 		if (posicao != -1) {
 			for (int i = posicao; i < this.tamanho; i++) {
