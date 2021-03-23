@@ -12,11 +12,11 @@ public class NoLista<T> {
 		this.info = novaInfo;
 	}
 	
-	public NoLista<T> getProx() {
+	public NoLista<T> getProximo() {
 		return this.prox;
 	}
 	
-	public void setProx(NoLista<T> novoProx) {
+	public void setProximo(NoLista<T> novoProx) {
 		this.prox = novoProx;
 	}
 }

@@ -19,7 +19,7 @@ public class ListaEncadeada<T> implements Lista<T> {
 				return index;
 			}
 			
-			p = p.getProx();
+			p = p.getProximo();
 			index++;
 		}
 		return -1;
@@ -35,7 +35,7 @@ public class ListaEncadeada<T> implements Lista<T> {
 		int index = 0;
 		NoLista<T> resultado = primeiro;
 		while (index != pos) {
-			resultado = resultado.getProx();
+			resultado = resultado.getProximo();
 			if (resultado == null) {
 				return null;
 			}
@@ -51,7 +51,7 @@ public class ListaEncadeada<T> implements Lista<T> {
 		NoLista<T> itemCopiar = this.primeiro;
 		while (itemCopiar != null) {
 			listaCopiada.inserir(itemCopiar.getInfo());
-			itemCopiar = itemCopiar.getProx();
+			itemCopiar = itemCopiar.getProximo();
 		}
 		return listaCopiada;
 	}
@@ -65,16 +65,16 @@ public class ListaEncadeada<T> implements Lista<T> {
 			int indiceMetadeLista = this.getTamanho() / 2 - 1;
 			
 			while (index < indiceMetadeLista) {
-				itemAtual = itemAtual.getProx();
+				itemAtual = itemAtual.getProximo();
 				index++;
 			}
 			
-			metadeLista.primeiro = itemAtual.getProx();
+			metadeLista.primeiro = itemAtual.getProximo();
 			metadeLista.ultimo = this.ultimo;
 			metadeLista.qtdElementos = this.getTamanho() - indiceMetadeLista - 1;
 			
 			this.ultimo = itemAtual;
-			this.ultimo.setProx(null);
+			this.ultimo.setProximo(null);
 			this.qtdElementos = indiceMetadeLista + 1;
 			
 		}
@@ -91,7 +91,7 @@ public class ListaEncadeada<T> implements Lista<T> {
 				resultado += ", ";
 			}
 			
-			p = p.getProx();
+			p = p.getProximo();
 		}
 		resultado += "]";
 		return resultado;
@@ -112,7 +112,7 @@ public class ListaEncadeada<T> implements Lista<T> {
 		if (this.estaVazia()) {
 			this.primeiro = novoNo;
 		} else {
-			this.ultimo.setProx(novoNo);			
+			this.ultimo.setProximo(novoNo);			
 		}
 		
 		this.ultimo = novoNo;
@@ -133,14 +133,14 @@ public class ListaEncadeada<T> implements Lista<T> {
 		
 		while (atual != null && atual.getInfo() != valor) {
 			anterior = atual;
-			atual = atual.getProx();
+			atual = atual.getProximo();
 		}
 		
 		if (atual != null) {
 			if (anterior != null) {
-				anterior.setProx(atual.getProx());			
+				anterior.setProximo(atual.getProximo());			
 			} else {
-				this.primeiro = atual.getProx();
+				this.primeiro = atual.getProximo();
 			}
 			
 			if (atual == this.ultimo) {
