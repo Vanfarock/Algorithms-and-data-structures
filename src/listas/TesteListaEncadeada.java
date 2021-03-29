@@ -22,8 +22,9 @@ public class TesteListaEncadeada {
 		listaString.inserir("Teste3");
 		listaString.inserir("Teste4");
 		
-		System.out.println(listaString.buscar("Teste1"));
-		
+		System.out.println(listaString.exibir());
+		listaString.inserir("Bla", 3);
+		System.out.println(listaString.exibir());
 //		System.out.println(lista.pegar(4));
 //		lista.concatenar(outraLista);
 //		System.out.println(lista.dividir().exibir());

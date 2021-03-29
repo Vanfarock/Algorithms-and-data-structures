@@ -122,8 +122,44 @@ public class ListaEncadeada<T> implements Lista<T> {
 
 	@Override
 	public void inserir(T valor, int pos) {
-		// TODO Auto-generated method stub
+		if (pos < 0 || pos > this.getTamanho()) {
+			return;
+		}
 		
+		NoLista<T> novoNo = new NoLista<T>();
+		novoNo.setInfo(valor);
+		
+		if (pos == 0) {
+			novoNo.setProximo(primeiro);
+			this.primeiro = novoNo;
+			this.qtdElementos++;
+			return;
+		}
+		
+		if (pos == this.getTamanho()) {
+			this.ultimo.setProximo(novoNo);
+			this.ultimo = novoNo;
+			this.qtdElementos++;
+			return;
+		}
+		
+		NoLista<T> atual = this.primeiro;
+		int index = 0;
+		while (atual != null) {
+			if (index == pos - 1) {
+				break;
+			}
+			atual = atual.getProximo();
+			index++;
+		}
+		
+		if (atual != null) {
+			NoLista<T> proximo = atual.getProximo();
+			
+			atual.setProximo(novoNo);
+			novoNo.setProximo(proximo);
+			this.qtdElementos++;
+		}
 	}
 
 	@Override
