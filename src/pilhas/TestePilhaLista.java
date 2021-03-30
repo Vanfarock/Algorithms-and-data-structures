@@ -1,9 +1,9 @@
 package pilhas;
 
-public class TestePilhaVetor {
+public class TestePilhaLista {
 
 	public static void main(String[] args) {
-		PilhaVetor<Integer> pilha = new PilhaVetor<Integer>(5);
+		PilhaLista<Integer> pilha = new PilhaLista<Integer>(5);
 		pilha.push(5);
 		pilha.push(4);
 		pilha.push(3);

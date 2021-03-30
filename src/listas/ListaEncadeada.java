@@ -186,4 +186,18 @@ public class ListaEncadeada<T> implements Lista<T> {
 			qtdElementos--;
 		}
 	}
+	
+	public void inserirNoFinal(T valor) {
+		NoLista<T> novoNo = new NoLista<T>();
+		novoNo.setInfo(valor);
+		novoNo.setProximo(null);
+		
+		if (estaVazia()) {
+			primeiro = novoNo;
+		} else {
+			ultimo.setProximo(novoNo);
+		}
+		ultimo = novoNo;
+		qtdElementos++;
+	}
 }
