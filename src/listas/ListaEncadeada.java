@@ -1,9 +1,41 @@
+// Vinícius Manuel Martins e Gustavo Henrique Kistner
+
 package listas;
 
 public class ListaEncadeada<T> implements Lista<T> {
 	protected NoLista<T> primeiro;
 	protected NoLista<T> ultimo;
 	protected int qtdElementos;
+	
+	public int ultimoIndiceDe(T x) {
+		int indiceAtual = -1;
+		int ultimoIndice = -1;
+		
+		NoLista<T> temp = this.primeiro;
+		while (temp != null) {
+			indiceAtual++;
+			if (temp.getInfo().equals(x)) {
+				ultimoIndice = indiceAtual;
+			}
+			temp = temp.getProximo();
+		}
+		return ultimoIndice;
+	}
+	
+	public ListaEncadeada<T> intercala(ListaEncadeada<T> outra) {
+		ListaEncadeada<T> resultado = new ListaEncadeada<T>();
+		for (int i = 0; i < Math.max(this.getTamanho(), outra.getTamanho()); i++) {
+			if (this.getTamanho() > i) {
+				resultado.inserir(this.pegar(i));
+			}
+			
+			if (outra.getTamanho() > i) {
+				resultado.inserir(outra.pegar(i));
+			}
+		}
+		
+		return resultado;
+	}
 	
 	@Override
 	public Boolean estaVazia() {

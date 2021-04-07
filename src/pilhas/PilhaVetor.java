@@ -63,5 +63,5 @@ public class PilhaVetor<T> implements Pilha<T> {
 		}
 		resultado += "]";
 		return resultado;
-	}
+	}	
 }

@@ -13,11 +13,11 @@ public class TesteFilaLista {
 		
 		System.out.println(fila.retirar());
 		System.out.println(fila);
-		System.out.println(fila.estaVazia());
+		System.out.println(fila.estaVazio());
 		
 		fila.liberar();
 		System.out.println(fila);
-		System.out.println(fila.estaVazia());
+		System.out.println(fila.estaVazio());
 	}
 
 }

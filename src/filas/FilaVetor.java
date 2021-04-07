@@ -36,7 +36,7 @@ public class FilaVetor<T> implements Fila<T> {
 
 	@Override
 	public T peek() {
-		if (estaVazia()) {
+		if (estaVazio()) {
 			throw new RuntimeException("Fila está vazia");
 		}
 
@@ -44,7 +44,7 @@ public class FilaVetor<T> implements Fila<T> {
 	}
 
 	@Override
-	public Boolean estaVazia() {
+	public Boolean estaVazio() {
 		return tamanho == 0;
 	}
 
