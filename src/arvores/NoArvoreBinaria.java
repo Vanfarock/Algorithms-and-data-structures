@@ -2,6 +2,7 @@ package arvores;
 
 public class NoArvoreBinaria<T> {
 	private T info;
+	protected NoArvoreBinaria<T> pai;
 	private NoArvoreBinaria<T> esq;
 	private NoArvoreBinaria<T> dir;
 
@@ -29,6 +30,9 @@ public class NoArvoreBinaria<T> {
 
 	public void setEsq(NoArvoreBinaria<T> esq) {
 		this.esq = esq;
+		if (esq != null) {
+			esq.pai = this;
+		}
 	}
 
 	public NoArvoreBinaria<T> getDir() {
@@ -37,6 +41,9 @@ public class NoArvoreBinaria<T> {
 
 	public void setDir(NoArvoreBinaria<T> dir) {
 		this.dir = dir;
+		if (dir != null) {
+			dir.pai = this;
+		}
 	}
 
 	public NoArvoreBinaria<T> pertence(T procurado) {
@@ -69,5 +76,10 @@ public class NoArvoreBinaria<T> {
 		}
 		
 		return impressao + ">";
+	}
+	
+	@Override
+	public String toString() {
+		return this.getInfo().toString();
 	}
 }
