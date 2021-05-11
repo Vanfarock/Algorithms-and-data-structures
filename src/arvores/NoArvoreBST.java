@@ -70,13 +70,60 @@ public class NoArvoreBST<T extends Comparable<T>> extends NoArvoreBinaria<T> {
 	
 	public NoArvoreBST<T> getNoSucessor() {
 		NoArvoreBST<T> noSucessor = this.getDir();
+		NoArvoreBST<T> paiNos = (NoArvoreBST<T>) this.pai;
 		
-		if (noSucessor == null) return noSucessor;
+		if (noSucessor == null) {
+			while (paiNos != null) {
+				if (this.getInfo().compareTo(paiNos.getInfo()) > 0) {
+					paiNos = (NoArvoreBST<T>)paiNos.pai;
+				} else {
+					return paiNos;
+				}
+			}
+			return null;
+		}
 		
 		while (noSucessor.getEsq() != null) {
 			noSucessor = noSucessor.getEsq();
 		}
 		
 		return noSucessor;
+	}
+	
+	public NoArvoreBST<T> getNoAntecessor() {
+		NoArvoreBST<T> noAntecessor = this.getEsq();
+		NoArvoreBST<T> paiNo = (NoArvoreBST<T>) this.pai;
+		
+		if (noAntecessor == null) {
+			while (paiNo != null) {
+				if (this.getInfo().compareTo(paiNo.getInfo()) < 0) {
+					paiNo = (NoArvoreBST<T>)paiNo.pai;
+				} else {
+					return paiNo;
+				}
+			}
+			return null;
+		};
+		
+		while (noAntecessor.getDir() != null) {
+			noAntecessor = noAntecessor.getDir();
+		}
+		
+		return noAntecessor;
+	}
+	
+	public String toStringOrdered() {
+		String impressao = "";
+		if (this.getEsq() != null) {
+			impressao += this.getEsq().toStringOrdered();
+		}
+		
+		impressao += this.getInfo() + " ";
+
+		if (this.getDir() != null) {
+			impressao += this.getDir().toStringOrdered();
+		}
+		
+		return impressao;
 	}
 }

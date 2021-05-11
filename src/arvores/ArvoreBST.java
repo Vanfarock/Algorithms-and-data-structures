@@ -53,4 +53,32 @@ public class ArvoreBST<T extends Comparable<T>> extends ArvoreBinariaAbstract<T>
 			}
 		}
 	}
+	
+	public NoArvoreBST<T> getMenor() {
+		NoArvoreBST<T> menor = this.getRaiz();
+		if (!vazia()) {
+			while (menor.getEsq() != null) {
+				menor = menor.getEsq();
+			}			
+		}
+		return menor;
+	}
+	
+	public NoArvoreBST<T> getMaior() {
+		NoArvoreBST<T> maior = this.getRaiz();
+		if (!vazia()) {
+			while (maior.getDir() != null) {
+				maior = maior.getDir();
+			}			
+		}
+		return maior;
+	}
+	
+	public String toStringOrdered() {
+		if (vazia() ) {
+			return "";
+		}
+		
+		return this.getRaiz().toStringOrdered();
+	}
 }

@@ -1,34 +1,45 @@
 package arvores;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 public class TesteArvoreBST {
 
 	public static void main(String[] args) {
 		ArvoreBST<Integer> arvore = new ArvoreBST<Integer>();
-//		arvore.inserir(5);
-//		arvore.inserir(2);
-//		arvore.inserir(1);
-//		arvore.inserir(10);
-//		arvore.inserir(11);
-//		arvore.inserir(8);
+		arvore.inserir(15);
+		arvore.inserir(6);
+		arvore.inserir(4);
+		arvore.inserir(5);
+		arvore.inserir(7);
+		arvore.inserir(23);
+		arvore.inserir(71);
+		arvore.inserir(50);
+		
+//		Veiculo a = new Veiculo("MJT-7432", "Fusca", 1912, "Pedro");
+//		Veiculo b = new Veiculo("MIT-8008", "Celta", 1999, "Douglas");
+//		Veiculo c = new Veiculo("MEI-4665", "Gol", 2002, "Carlos");
+//		Veiculo d = new Veiculo("MIO-6668", "Fusca", 1915, "Aline");
+//		Veiculo e = new Veiculo("DIO-3333", "Celta", 1999, "Fausto");
+//		Veiculo f = new Veiculo("PAO-6472", "C3", 2007, "Carolina");
+//		Veiculo g = new Veiculo("CAO-2890", "C4", 2012, "Kelvin");
+//		Veiculo h = new Veiculo("UVA-3939", "BMW", 2015, "Zé");
+//		Veiculo i = new Veiculo("OVO-0000", "Gol", 2000, "Joshua");
+//		Veiculo j = new Veiculo("ABC-1234", "Ferrari", 2015, "Marta");
 //		
-//		arvore.retirar(10);
+//		ArvoreBST<Veiculo> arvore = new ArvoreBST<Veiculo>();
+//		arvore.inserir(a);
+//		arvore.inserir(b);
+//		arvore.inserir(c);
+//		arvore.inserir(d);
+//		arvore.inserir(e);
+//		arvore.inserir(f);
+//		arvore.inserir(g);
+//		arvore.inserir(h);
+//		arvore.inserir(i);
+//		arvore.inserir(j);
 		
-		ArrayList<Integer> numerosAleatorios = gerarNumerosAleatorios(100);
-		for (int numero : numerosAleatorios) {
-			arvore.inserir(numero);
-		}
-		
-		Collections.shuffle(numerosAleatorios);
-		
-		for (int numero : numerosAleatorios) {
-			System.out.println(arvore);
-			arvore.retirar(numero);
-		}
-		System.out.println(arvore);
+		System.out.println(arvore.toStringOrdered());
 	}
 
 	public static ArrayList<Integer> gerarNumerosAleatorios(int qtd) {
